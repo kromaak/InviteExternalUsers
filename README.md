@@ -9,4 +9,4 @@ Then you will be prompted for username and password to authenticate against the 
 Current issues yet to be resolved:
 1. I can't seem to figure out how to change the body of the email into rich text.
 2. I need to understand how to change who the email is being sent from - I don't want replies in my personal inbox from 2000 external recipients with their questions.
-3. I can either send an email using WebSharingManager.UpdateWebSharingInformation, or it seems like I can build a JSON object using Vesa's example (https://blogs.msdn.microsoft.com/vesku/2015/10/02/external-sharing-api-for-sharepoint-and-onedrive-for-business/), but that doesn't seem to send an invite.  Am I missing something?
+3. I can either send an email using WebSharingManager.UpdateWebSharingInformation, or it seems like I can build a JSON object using Vesa's example (https://blogs.msdn.microsoft.com/vesku/2015/10/02/external-sharing-api-for-sharepoint-and-onedrive-for-business/), but that doesn't seem to send an invite.  Am I missing something - once you build the result, there must be something more you need to do with it?
