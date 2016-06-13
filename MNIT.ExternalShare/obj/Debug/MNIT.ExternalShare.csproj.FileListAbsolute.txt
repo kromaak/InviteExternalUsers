@@ -18,3 +18,23 @@
 \\EDC1AdminFS01\home\akroma\Documents\Visual Studio 2013\Projects\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Data.Edm.dll
 \\EDC1AdminFS01\home\akroma\Documents\Visual Studio 2013\Projects\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Data.Edm.xml
 \\EDC1AdminFS01\home\akroma\Documents\Visual Studio 2013\Projects\MNIT.ConsoleApps\MNIT.ExternalShare\obj\Debug\MNIT.ExternalShare.csprojResolveAssemblyReference.cache
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\obj\Debug\MNIT.ExternalShare.exe
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\obj\Debug\MNIT.ExternalShare.pdb
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\MNIT.ExternalShare.exe
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\MNIT.ExternalShare.pdb
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Office.Client.Policy.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Office.Client.TranslationServices.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Office.SharePoint.Tools.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Online.SharePoint.Client.Tenant.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.DocumentManagement.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.Publishing.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.Runtime.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.Search.Applications.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.Search.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.Taxonomy.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.UserProfiles.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.SharePoint.Client.WorkflowServices.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Data.Edm.dll
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\bin\Debug\Microsoft.Data.Edm.xml
+C:\ProjectFiles\MNIT.ConsoleApps\MNIT.ExternalShare\obj\Debug\MNIT.ExternalShare.csprojResolveAssemblyReference.cache

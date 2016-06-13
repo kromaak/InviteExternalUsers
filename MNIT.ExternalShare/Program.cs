@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Security;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Sharing;
@@ -40,21 +41,58 @@ namespace MNIT.ExternalShare
                 ActingUser actingUser = new ActingUser(userLoginName, userPassword, userDomain);
 
                 string siteAddress = args[0];
-                string[] readUrls = System.IO.File.ReadAllLines("c:\\temp\\ExternalUserList.csv");
-                foreach (string readCurrentLine in readUrls)
+                string inputFile = "c:\\temp\\ExternalUserList.csv";
+                //string[] readUrls = System.IO.File.ReadAllLines("c:\\temp\\ExternalUserList.csv");
+                
+
+                //
+                // Read in a file line-by-line, and store it all in a List.
+                //
+                List<string> list = new List<string>();
+                try
+                {
+                    using (StreamReader reader = new StreamReader(inputFile))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            // Add each email address to the virtual list
+                            list.Add(line);
+                        }
+                    }
+                }
+                catch (Exception ex01Exception)
+                {
+                    Console.WriteLine(ex01Exception.Message);
+                }
+
+
+                //foreach (string readCurrentLine in readUrls)
+                foreach (string readCurrentLine in list)
                 {
                     if (!string.IsNullOrEmpty(readCurrentLine.Trim()))
                     {
                         string currentLine = readCurrentLine.Trim();
-                        //SendInvite(siteAddress, currentLine, actingUser);
-                        ShareSite(siteAddress, currentLine, actingUser);
+                        //ShareSite(siteAddress, currentLine, actingUser);
+                        SendInvite(siteAddress, currentLine, actingUser);
+                        
+                        // Add user to a group
+                        string groupName = "TestAKK01 Visitors";
+                        string action = "add";
+
+                        string[] passAddUserArgs = new string[4];
+                        passAddUserArgs[0] = siteAddress;
+                        passAddUserArgs[1] = currentLine;
+                        passAddUserArgs[2] = groupName;
+                        passAddUserArgs[3] = action;
+                        AddUserToGroup(passAddUserArgs, actingUser);
                     }
                 }
                 Console.WriteLine("Send invitation function is complete.");
             }
         }
 
-        public static void ShareSite(string siteAddress, string externalUserEmail, ActingUser actingUser)
+        public static void SendInvite(string siteAddress, string externalUserEmail, ActingUser actingUser)
         {
             using (var ctx = new ClientContext(siteAddress))
             {
@@ -87,14 +125,14 @@ namespace MNIT.ExternalShare
                     WebSharingManager.UpdateWebSharingInformation(ctx, ctx.Web, users, true, null, true, true);
                     ctx.ExecuteQuery();
                 }
-                catch (Exception ex01Exception)
+                catch (Exception ex02Exception)
                 {
-                    Console.WriteLine(ex01Exception);
+                    Console.WriteLine(ex02Exception);
                 }
             }
         }
 
-        private static void SendInvite(string siteAddress, string externalUserEmail, ActingUser actingUser)
+        private static void ShareSite(string siteAddress, string externalUserEmail, ActingUser actingUser)
         {
             ClientContext ctx = new ClientContext(siteAddress);
             Site siteCollection = ctx.Site;
@@ -117,12 +155,70 @@ namespace MNIT.ExternalShare
                     emailSubject, emailBody);
                 ctx.Load(result);
                 ctx.ExecuteQuery();
-                Console.WriteLine();
                 Console.WriteLine("Email sent to {0}", externalUserEmail);
             }
-            catch (Exception ex01Exception)
+            catch (Exception ex03Exception)
             {
-                Console.WriteLine(ex01Exception);
+                Console.WriteLine(ex03Exception);
+            }
+            finally
+            {
+                ctx.Dispose();
+            }
+        }
+
+        private static void AddUserToGroup(string[] args, ActingUser actingUser)
+        {
+            string siteAddress = args[0];
+            string externalUserEmail = args[1];
+            string groupName = args[2];
+            string action = args[3];
+            ClientContext ctx = new ClientContext(siteAddress);
+            Site siteCollection = ctx.Site;
+            Web currentWeb = ctx.Web;
+            ctx.Credentials = new SharePointOnlineCredentials(actingUser.UserLoginName, actingUser.UserPassword);
+            try
+            {
+                
+                ctx.Load(currentWeb, w => w.AllProperties, w => w.SiteGroups, w => w.SiteUserInfoList, w => w.Webs,w => w.Title);
+                ctx.ExecuteQuery();
+                GroupCollection groupCollection = currentWeb.SiteGroups;
+                ctx.Load(groupCollection, groups => groups.Include(grps => grps.Users, grps => grps.Title));
+                ctx.ExecuteQuery();
+                User user;
+                var rootWeb = siteCollection.RootWeb;
+                var usr = rootWeb.EnsureUser(externalUserEmail);
+                ctx.Load(usr);
+                ctx.ExecuteQuery();
+                Console.WriteLine("User: {0} Login name: {1} Email: {2}",
+                        usr.Title, usr.LoginName, usr.Email);
+                foreach (Group group in groupCollection)
+                {
+                   if (group.Title.Equals(groupName))
+                   {
+                      UserCreationInformation userInfo = new UserCreationInformation();
+                      userInfo.LoginName = externalUserEmail;
+             
+                      if (action == "add")
+                      {
+                         user = group.Users.Add(userInfo);
+                         group.Users.AddUser(user);
+                       }
+                       else if (action == "remove")
+                       {
+                         user = group.Users.GetByLoginName(externalUserEmail);
+                         group.Users.Remove(user);
+                        }
+                        group.Update();
+                        currentWeb.Update();
+                        ctx.ExecuteQuery();
+                     }
+                  }
+                Console.WriteLine("User {0} added to {1}", externalUserEmail, groupName);
+            }
+            catch (Exception ex04Exception)
+            {
+                Console.WriteLine(ex04Exception);
             }
             finally
             {
